@@ -31,6 +31,8 @@ export function Welcome(){
                     suas plantas de{'\n'}
                     forma fácil
                 </Text>
+              
+                
 
                 <Image 
                     source={wateringImg} 
