@@ -9,23 +9,20 @@ import {
     KeyboardAvoidingView,
     Platform,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard,
+    Alert
 } from 'react-native'
 import { Button } from '../components/Button'
 import colors from '../styles/colors'
 import fonts from '../styles/fonts'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function UserIdentification(){
 
     const navigation = useNavigation()
-
-    function handleSubmit(){
-        navigation.navigate('Confirmation')
-    }
-
     const [isFocused, setIsFofused] = useState(false)
     const [isFilled, setIsFilled] = useState(false)
-    const [name, setName] = useState<String>()
+    const [name, setName] = useState<string>()
 
     function handleInputBlur(){
         setIsFofused(false)
@@ -34,11 +31,20 @@ export function UserIdentification(){
     function handleInputFocus(){
         setIsFofused(true)
     }
-    function handleInputChange(value: String){
+    function handleInputChange(value: string){
         setIsFilled(!!value)
         setName(value)
     }
 
+    async function handleSubmit(){
+
+        if(!name)
+            return Alert.alert('Você não informou seu nome! 😥')
+        
+            await AsyncStorage.setItem('@plantmanager:user', name)
+        
+        navigation.navigate('Confirmation')
+    }
     return(
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView 
