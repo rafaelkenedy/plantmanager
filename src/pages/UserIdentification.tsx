@@ -40,10 +40,14 @@ export function UserIdentification(){
 
         if(!name)
             return Alert.alert('Você não informou seu nome! 😥')
+            try{
+                await AsyncStorage.setItem('@plantmanager:user', name)
+                navigation.navigate('Confirmation')
+            }catch{
+                Alert.alert('Não foi possível salvar seu nome! 😥')
+            }
         
-            await AsyncStorage.setItem('@plantmanager:user', name)
-        
-        navigation.navigate('Confirmation')
+           
     }
     return(
         <SafeAreaView style={styles.container}>
