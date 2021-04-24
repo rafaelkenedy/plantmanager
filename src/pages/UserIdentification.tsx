@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
 import {
     SafeAreaView,
@@ -16,6 +15,7 @@ import { Button } from '../components/Button'
 import colors from '../styles/colors'
 import fonts from '../styles/fonts'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation, useRoute } from '@react-navigation/core'
 
 export function UserIdentification(){
 
@@ -37,12 +37,17 @@ export function UserIdentification(){
     }
 
     async function handleSubmit(){
-
         if(!name)
             return Alert.alert('Você não informou seu nome! 😥')
             try{
                 await AsyncStorage.setItem('@plantmanager:user', name)
-                navigation.navigate('Confirmation')
+                navigation.navigate('Confirmation',{
+                    title: 'Prontinho',
+                    subtitle: 'Agora vamos começar a cuidar das suas plantinhas com muito cuidado',
+                    buttonTitle: 'Começar',
+                    icon: 'smile',
+                    nextScreen: 'PlantSelect',
+                })
             }catch{
                 Alert.alert('Não foi possível salvar seu nome! 😥')
             }
