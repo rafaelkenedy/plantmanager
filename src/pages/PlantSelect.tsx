@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -6,16 +6,18 @@ import {
   FlatList,
   ActivityIndicator
 } from 'react-native'
-import colors from '../styles/colors'
+import { EnvironmentButton } from '../components/EnvironmentButton'
+import { useNavigation } from '@react-navigation/core'
+
 import {Header} from '../components/Header'
-import fonts from '../styles/fonts'
-import { EnvironmentButton } from '../components/EnvironmentButoon'
-import { useEffect } from 'react'
-import api from '../services/api'
 import { PlantCardPrimary } from '../components/PlantCardPrimary'
 import { Load } from '../components/Load'
-import { useNavigation } from '@react-navigation/core'
 import { PlantProps } from '../libs/storage'
+
+import api from '../services/api'
+
+import colors from '../styles/colors'
+import fonts from '../styles/fonts'
 
 interface EnvironmentProps{
   key: string
@@ -75,9 +77,6 @@ export function PlantSelect(){
 
   }
 
-
-
-
   useEffect(() => {
     async function fetchEnvironment(){
       const { data } = await api.get('plants_environments?_sort=title&_order=asc')
@@ -91,17 +90,15 @@ export function PlantSelect(){
     }
 
     fetchEnvironment()
-
   },[])
 
   useEffect(()=>{
-
-
     fetchPlants()
   },[])
 
   if(loading)
     return <Load />
+    
   return(
     <View style={styles.container}>
       <View style={styles.header}>
@@ -114,6 +111,7 @@ export function PlantSelect(){
           você quer colocar sua planta?
         </Text>        
       </View>   
+
       <View>
         <FlatList
           data={environments}
@@ -122,8 +120,7 @@ export function PlantSelect(){
             <EnvironmentButton
               title={item.title}
               active={item.key === environmentSelected}
-              onPress={() => handleEnvironmentSelected(item.key)}
-             
+              onPress={() => handleEnvironmentSelected(item.key)}             
             />
           )}
           horizontal

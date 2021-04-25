@@ -35,9 +35,7 @@ export function Header(){
         </Text>
       </View>
 
-      <Image source={userImg} style={styles.image}/>
-
-      
+      <Image source={userImg} style={styles.image}/>  
 
     </View>
   )
