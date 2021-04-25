@@ -12,7 +12,7 @@
 
 #About
 
-Car your plants, NLW5 PROJECT!!
+Care your plants, NLW5 PROJECT!!
 
 <div align="center">
   <img src="assets/cover.png" width="700" /> 
